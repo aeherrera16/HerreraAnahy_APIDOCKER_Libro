@@ -1,0 +1,529 @@
+{
+	"info": {
+		"_postman_id": "api-libros-crud-2025",
+		"name": "API Libros - CRUD Completo",
+		"description": "Colección completa de pruebas CRUD para la API RESTful de Gestión de Libros. Incluye casos exitosos y manejo de errores.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Crear Libro - Caso Exitoso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 201 Created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Respuesta contiene id\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"});",
+							"",
+							"pm.test(\"Libro creado correctamente\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.titulo).to.eql(\"Cien años de soledad\");",
+							"    pm.expect(jsonData.autor).to.eql(\"Gabriel García Márquez\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"titulo\": \"Cien años de soledad\",\n  \"autor\": \"Gabriel García Márquez\",\n  \"genero\": \"Realismo mágico\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/libros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"libros"
+					]
+				},
+				"description": "Crea un nuevo libro en la base de datos. Espera código 201 Created."
+			},
+			"response": []
+		},
+		{
+			"name": "2. Crear Segundo Libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"titulo\": \"Don Quijote de la Mancha\",\n  \"autor\": \"Miguel de Cervantes\",\n  \"genero\": \"Novela\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/libros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"libros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Crear Tercer Libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"titulo\": \"1984\",\n  \"autor\": \"George Orwell\",\n  \"genero\": \"Distopía\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/libros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"libros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Listar Todos los Libros - Caso Exitoso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Respuesta es un array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"",
+							"pm.test(\"Array contiene libros\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.be.above(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/api/libros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"libros"
+					]
+				},
+				"description": "Obtiene la lista completa de libros. Espera código 200 OK y un array de libros."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Buscar Libro por ID - Caso Exitoso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Respuesta contiene datos del libro\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"    pm.expect(jsonData).to.have.property('titulo');",
+							"    pm.expect(jsonData).to.have.property('autor');",
+							"    pm.expect(jsonData).to.have.property('genero');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/api/libros/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"libros",
+						"1"
+					]
+				},
+				"description": "Busca un libro específico por su ID. Espera código 200 OK y los datos del libro."
+			},
+			"response": []
+		},
+		{
+			"name": "6. Buscar Libro Inexistente - Caso Error 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 404 Not Found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Manejo correcto de libro inexistente\", function () {",
+							"    pm.expect(pm.response.code).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/api/libros/999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"libros",
+						"999"
+					]
+				},
+				"description": "Intenta buscar un libro con ID inexistente. Espera código 404 Not Found."
+			},
+			"response": []
+		},
+		{
+			"name": "7. Actualizar Libro - Caso Exitoso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 201 Created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Libro actualizado correctamente\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.titulo).to.include(\"Edición Especial\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"titulo\": \"Cien años de soledad - Edición Especial\",\n  \"autor\": \"Gabriel García Márquez\",\n  \"genero\": \"Realismo mágico\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/libros/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"libros",
+						"1"
+					]
+				},
+				"description": "Actualiza los datos de un libro existente. Espera código 201 Created."
+			},
+			"response": []
+		},
+		{
+			"name": "8. Actualizar Libro Inexistente - Caso Error 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 404 Not Found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"No se puede actualizar libro inexistente\", function () {",
+							"    pm.expect(pm.response.code).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"titulo\": \"Libro Inexistente\",\n  \"autor\": \"Autor Desconocido\",\n  \"genero\": \"Ficción\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/libros/999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"libros",
+						"999"
+					]
+				},
+				"description": "Intenta actualizar un libro que no existe. Espera código 404 Not Found."
+			},
+			"response": []
+		},
+		{
+			"name": "9. Verificar Listado Después de Actualizar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/api/libros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"libros"
+					]
+				},
+				"description": "Verifica que la lista refleja los cambios realizados."
+			},
+			"response": []
+		},
+		{
+			"name": "10. Eliminar Libro - Caso Exitoso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 204 No Content\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Respuesta vacía\", function () {",
+							"    pm.expect(pm.response.text()).to.eql(\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/api/libros/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"libros",
+						"2"
+					]
+				},
+				"description": "Elimina un libro existente. Espera código 204 No Content."
+			},
+			"response": []
+		},
+		{
+			"name": "11. Eliminar Libro Inexistente - Caso Error 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 404 Not Found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"No se puede eliminar libro inexistente\", function () {",
+							"    pm.expect(pm.response.code).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/api/libros/999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"libros",
+						"999"
+					]
+				},
+				"description": "Intenta eliminar un libro que no existe. Espera código 404 Not Found."
+			},
+			"response": []
+		},
+		{
+			"name": "12. Verificar Listado Final",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code es 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Libros restantes después de eliminación\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8001/api/libros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"libros"
+					]
+				},
+				"description": "Verifica el listado final después de todas las operaciones CRUD."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8001",
+			"type": "string"
+		}
+	]
+}

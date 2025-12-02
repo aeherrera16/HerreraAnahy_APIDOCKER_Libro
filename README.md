@@ -809,8 +809,8 @@ docker rmi api-libros:1.0
 
 ### Repositorios y Enlaces
 
-- **GitHub**: `https://github.com/TU_USUARIO/api-libros`
-- **Docker Hub**: `https://hub.docker.com/r/TU_USUARIO_DOCKERHUB/api-libros`
+- **GitHub**: `https://github.com/aeherrera16/HerreraAnahy_APIDOCKER_Libro`
+- **Docker Hub**: `https://hub.docker.com/r/anahy/api-libros`
 
 ---
 
